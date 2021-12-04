@@ -1,0 +1,17 @@
+{
+  "name": "role-play",
+  "version": "1.0.0",
+  "description": "A Discord bot to allow users to Role Play with Webhooks",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Quinn Gibson",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.3.1"
+  }
+}
