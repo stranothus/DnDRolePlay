@@ -11,6 +11,7 @@ export default {
 
         client.commands = new discord.Collection();
         
+        // load commands
         Promise.all(dirFlat("./commands").map(async v => {
             let imported = await import("../" + v);
         
@@ -25,6 +26,8 @@ export default {
             const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
             client.guilds.cache.forEach(async guild => {
+
+                // register slash commands
                 try {
                     await rest.put(
                         Routes.applicationGuildCommands(client.user.id, guild.id), {
@@ -33,6 +36,14 @@ export default {
                     );
                 } catch (error) {
                     console.error(error);
+                }
+
+                // create a DB document for new servers
+                if(!(await global.DB.db("Info").collection("Guilds").findOne({ id: guild.id }))) {
+                    global.DB.db("Info").collection("Guilds").insertOne({
+                        id: guild.id,
+                        characters: []
+                    });
                 }
             });
         });

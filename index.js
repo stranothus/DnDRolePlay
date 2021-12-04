@@ -1,4 +1,5 @@
 import discord from "discord.js";
+import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 import dirFlat from "./utils/dirFlat.js";
 
@@ -12,6 +13,24 @@ const client = new discord.Client({
     partials: [
         "CHANNEL"
     ]
+});
+
+new Promise((resolve, reject) => {
+    MongoClient.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.${process.env.DB_NAME}.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        },
+        (err, db) => {
+            if(err) console.error(err);
+
+            console.log("DB connected");
+
+            global.DB = db;
+
+            resolve(db);
+        }
+    );
 });
 
 Promise.all(dirFlat("./events").map(async v => {
