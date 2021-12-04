@@ -4,7 +4,7 @@ import dirFlat from "../utils/dirFlat.js";
 import discord from "discord.js";
 
 export default {
-    type: "on",
+    type: "once",
     name: "ready",
     execute: client => {
         console.log("Logged in as " + client.user.tag);
