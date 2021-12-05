@@ -42,7 +42,8 @@ export default {
                 if(!(await global.DB.db("Info").collection("Guilds").findOne({ id: guild.id }))) {
                     global.DB.db("Info").collection("Guilds").insertOne({
                         id: guild.id,
-                        characters: []
+                        characters: [],
+                        channels: []
                     });
                 }
             });

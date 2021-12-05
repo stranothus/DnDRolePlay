@@ -31,16 +31,16 @@ new Promise((resolve, reject) => {
             resolve(db);
         }
     );
+}).then(DB => {
+    Promise.all(dirFlat("./events").map(async v => {
+        let imported = await import("./" + v);
+    
+        return {
+            command: v.replace(/\.[^\.]+$/, ""),
+            file: v,
+            ...imported.default
+        };
+    })).then(events => events.forEach(event => client[event.type](event.name, event.execute)));
+    
+    client.login(process.env.TOKEN);
 });
-
-Promise.all(dirFlat("./events").map(async v => {
-    let imported = await import("./" + v);
-
-    return {
-        command: v.replace(/\.[^\.]+$/, ""),
-        file: v,
-        ...imported.default
-    };
-})).then(events => events.forEach(event => client[event.type](event.name, event.execute)));
-
-client.login(process.env.TOKEN);
