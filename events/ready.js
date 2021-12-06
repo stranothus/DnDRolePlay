@@ -1,7 +1,7 @@
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
 import dirFlat from "../utils/dirFlat.js";
-import discord from "discord.js";
+import discord, { Permissions } from "discord.js";
 
 export default {
     type: "once",
@@ -38,6 +38,21 @@ export default {
                     console.error(error);
                 }
 
+                let setup = (await client.guilds.cache.get(guild.id).commands.fetch()).find(v => v.name === "setup");
+
+                guild.commands.permissions.set({
+                    command: setup.id,
+                    permissions: guild.members.cache.map(member => member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) ? {
+                        id: member.user.id,
+                        type: "USER",
+                        permission: true
+                    } : {
+                        id: member.user.id,
+                        type: "USER",
+                        permission: false
+                    })
+                });
+        
                 // create a DB document for new servers
                 if(!(await global.DB.db("Info").collection("Guilds").findOne({ id: guild.id }))) {
                     global.DB.db("Info").collection("Guilds").insertOne({

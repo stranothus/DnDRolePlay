@@ -5,10 +5,12 @@ import dirFlat from "./utils/dirFlat.js";
 
 dotenv.config();
 
-const client = new discord.Client({
+global.client = new discord.Client({
     intents: [
         "GUILDS",
-        "GUILD_MESSAGES"
+        "GUILD_MESSAGES",
+        "GUILD_MEMBERS",
+        "GUILD_PRESENCES"
     ],
     partials: [
         "CHANNEL"
