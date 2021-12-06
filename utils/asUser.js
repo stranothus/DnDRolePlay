@@ -14,7 +14,7 @@
         let webhook = (await channel.parent.fetchWebhooks()).filter(webhook => webhook.name === "RolePlay").first() || await channel.parent.createWebhook("RolePlay");
 
         webhook.send({
-            "content": content,
+            ...content,
             "avatarURL": user.avatar,
             "username": author.name,
             "allowedMentions": {
@@ -28,7 +28,7 @@
         let webhook = (await channel.fetchWebhooks()).filter(webhook => webhook.name === "RolePlay").first() || await channel.createWebhook("RolePlay");
 
         webhook.send({
-            "content": content,
+            ...content,
             "avatarURL": user.avatar,
             "username": user.name,
             "allowedMentions": {

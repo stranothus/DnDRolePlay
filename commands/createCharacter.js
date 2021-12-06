@@ -12,7 +12,7 @@ export default {
     execute: async function(interaction) {
         let userID = interaction.member.id;
 
-        if(await global.DB.db("Info").collection("Guilds").findOne({ "characters.userID": userID })) {
+        if(await global.DB.db("Info").collection("Guilds").findOne({ id: interaction.guild.id, "characters.userID": userID })) {
             interaction.reply({ content: "You already have a character in this server", ephemeral: true });
         } else {
             await global.DB.db("Info").collection("Guilds").updateOne({ id: interaction.guild.id }, { $push: { "characters": {
