@@ -17,6 +17,8 @@ export default {
         )
         .setDefaultPermission(false),
     execute: async function(interaction) {
+        const userID = interaction.member.id;
+        
         if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({ content: "Only an administrator can setup roleplay channels", ephemeral: true });
 
         if(await global.DB.db("Info").collection("Guilds").findOne({ guildID: interaction.guild.id, "channels.channelID": interaction.channel.id })) return interaction.reply({ content: `This channel already has a campaign`, epheraml: true });
