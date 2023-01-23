@@ -5,6 +5,6 @@ export default {
         .setName("ping")
         .setDescription("Replies with pong"),
     execute: function(interaction) {
-        interaction.reply("Pong!");
+        interaction.reply({ content: `Pong!`, ephemeral: true });
     }
 }

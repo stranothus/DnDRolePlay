@@ -11,12 +11,12 @@
  */
  async function asUser(channel, user, content) {
     if(channel.type === "GUILD_PUBLIC_THREAD" || channel.type === "GUILD_PRIVATE_THREAD") {
-        let webhook = (await channel.parent.fetchWebhooks()).filter(webhook => webhook.name === "RolePlay").first() || await channel.parent.createWebhook("RolePlay");
+        let webhook = (await channel.parent.fetchWebhooks()).filter(webhook => webhook.name === "DnDRolePlay").first() || await channel.parent.createWebhook("DnDRolePlay");
 
         webhook.send({
             ...content,
             "avatarURL": user.avatar,
-            "username": author.name,
+            "username": user.name,
             "allowedMentions": {
                 "roles": [],
                 "users": [],
@@ -25,7 +25,7 @@
             "threadId": channel.id
         });
     } else {
-        let webhook = (await channel.fetchWebhooks()).filter(webhook => webhook.name === "RolePlay").first() || await channel.createWebhook("RolePlay");
+        let webhook = (await channel.fetchWebhooks()).filter(webhook => webhook.name === "DnDRolePlay").first() || await channel.createWebhook("DnDRolePlay");
 
         webhook.send({
             ...content,

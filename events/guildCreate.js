@@ -3,8 +3,7 @@ export default {
     name: "guildCreate",
     execute: guild => {
         global.DB.db("Info").collection("Guilds").insertOne({
-            id: guild.id,
-            characters: [],
+            guildID: guild.id,
             channels: []
         });
     }
