@@ -18,7 +18,7 @@ export default {
 
         if(!channelDB) return interaction.reply({ content: `This channel has no campaign`, ephemeral: true });
 
-        const character = channelDB.characters.filter(v => v.userID === userID && v.name === name);
+        const character = channelDB.characters.filter(v => v.userID === userID && v.name === name)?.[0];
 
         if(!character)  return interaction.reply({ content: `You have no character named ${oldname}`, ephemeral: true });
 
