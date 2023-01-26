@@ -4,7 +4,7 @@ import asUser from "../utils/asUser.js";
 export default {
     data: new SlashCommandBuilder()
         .setName("roleplay")
-        .setDescription("Send a message as a character")
+        .setDescription("Send a message as your character")
         .addStringOption(option => option
             .setName("content")
             .setDescription("The content of your character's message")

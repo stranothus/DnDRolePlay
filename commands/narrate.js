@@ -5,7 +5,7 @@ import asUser from "../utils/asUser.js";
 export default {
     data: new SlashCommandBuilder()
         .setName("narrate")
-        .setDescription("Narrate for the campaign (Dungeon Master only)")
+        .setDescription("Narrate the campaign (Dungeon Master only)")
         .addStringOption(option => option
             .setName("content")
             .setDescription("The content of your character's message")
