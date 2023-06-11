@@ -40,12 +40,16 @@ export default {
             .setDescription("How many dice would you like to roll?")
             .setMinValue(1)
             .setMaxValue(8)
-            .setRequired(true)
+        )
+        .addIntegerOption(option => option
+            .setName("modifier")
+            .setDescription("Set a base modifier to be added or subtracted from the resulting roll")
         ),
     execute: function(interaction) {
         const dice = interaction.options.getString("dice");
         const diceSides = +dice.replace(/d/gi, "");
-        const quantity = interaction.options.getInteger("quantity");
+        const quantity = interaction.options.getInteger("quantity") || 1;
+        const modifier = interaction.options.getInteger("modifier");
 
         let results = [];
 
@@ -54,7 +58,7 @@ export default {
         }
 
         interaction.reply({ 
-            content: `You rolled ${quantity} ${dice}'s and got: ${results.join(", ")} for a total of ${results.reduce((a, b) => a + b, 0)}`, 
+            content: `You rolled ${quantity} ${dice}'s and got: ${results.join(", ")} ${modifier < 0 ? "-" : "+"} ${modifier ? Math.abs(modifier) : 0} for a total of ${results.reduce((a, b) => a + b, 0) + modifier}`, 
             files: results.map(v => `./dice/d${diceSides}/result_${v}.gif`),
             ephemeral: false 
         });
